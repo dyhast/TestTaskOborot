@@ -1,65 +1,85 @@
 <?
-class Garden
+
+abstract class trees 
 {
-  public  $CurrAppleTree;
-  public  $CurrPearTree;
-  public  $Apples;
-  public  $Pears;
-  public  $MassApples;
-  public  $MassPears;
+  public  $CurrTrees;
+  public  $Fruits;
+  public  $Mass;
 
-  public function __construct($CurrAppleTree, $CurrPearTree)
-  {
-    $this->CurrAppleTree = $CurrAppleTree;
-    $this->CurrPearTree = $CurrPearTree;
-  }
-  
-  public function AddAppleTree($AppleTree)
-  {
-    $this->CurrAppleTree += $AppleTree;
-  }
+  abstract protected function AddTrees($trees);
+  abstract protected function TakeFruits();
+  abstract protected function SummMass();
+}
 
-  public function AddPearTree($PearTree)
+class Apples extends trees
+{
+
+  public function __construct($CurrAppleTree)
   {
-    $this->CurrPearTree += $PearTree;
+    $this->CurrTrees = $CurrAppleTree;
   }
 
-  public function TakeApples()
+  public function AddTrees($trees)
   {
-    for ($i = 1; $i <= $this->CurrAppleTree; $i++) 
+    $this->CurrTrees += $trees;
+  }
+
+  public function TakeFruits()
+  {
+    for ($i = 1; $i <= $this->CurrTrees; $i++) 
     {
-      $this->Apples += rand(40, 50);
+      $this->Fruits += rand(40, 50);
     }
   }
 
-  public function TakePears()
+  public function SummMass()
   {
-    for ($i = 1; $i <= $this->CurrPearTree; $i++) 
+    if ($this->Fruits==0)
     {
-      $this->Pears += rand(0, 20);
+      $this->TakeFruits();
+    }
+    while ($i < $this->Fruits) 
+    {
+      $this->Mass += rand(150, 180);
+      $i++;
+    }
+  }
+}
+
+  class Pears extends trees
+{
+
+  public function __construct($CurrTrees)
+  {
+    $this->CurrTrees = $CurrTrees;
+  }
+
+  public function AddTrees($trees)
+  {
+    $this->CurrTrees += $trees;
+  }
+
+  public function TakeFruits()
+  {
+    for ($i = 1; $i <= $this->CurrTrees; $i++) 
+    {
+      $this->Fruits += rand(0, 20);
     }
   }
 
-  public function MassApples()
+  public function SummMass()
   {
-    while ($i < $this->Apples) 
+    if ($this->Fruits==0)
     {
-      $this->MassApples += rand(150, 180);
+      $this->TakeFruits();
+    }
+    while ($i < $this->Fruits) 
+    {
+      $this->Mass += rand(130, 170);
       $i++;
     }
   }
 
-  public function MassPears()
-  {
-    while ($i < $this->Pears) 
-    {
-      $this->MassPears += rand(130, 170);
-      $i++;  
-    }
-  }
 
 }
-
-
-
 ?>

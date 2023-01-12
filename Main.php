@@ -10,20 +10,20 @@ $CurrPearTree = $current[1];
 $AppleTree = 10;
 $PearTree = 15;
 
-echo $ObjGarden;
 
-$ObjGarden = new Garden($CurrAppleTree, $CurrPearTree);
+$ObjApples = new Apples($CurrAppleTree);
+$ObjPears = new Pears($CurrPearTree);
 
-
-$ObjGarden->AddPearTree($PearTree);
-$ObjGarden->AddAppleTree($AppleTree);
-$ObjGarden->TakePears();
-$ObjGarden->TakeApples();
-
-echo 'Яблок собрано: '.$ObjGarden->Apples.' с '.$ObjGarden->CurrAppleTree.' деревьев, общей массой: '.$ObjGarden->MassApples.'<br>';
-echo 'Яблок собрано: '.$ObjGarden->Pears.' с '.$ObjGarden->CurrPearTree.' деревьев, общей массой: '.$ObjGarden->MassPears.'<br>';
+$ObjApples->AddTrees($AppleTree);
+$ObjApples->SummMass();
+$ObjPears->AddTrees($PearTree);
+$ObjPears->SummMass();
 
 
-file_put_contents('garden.txt', $ObjGarden->CurrAppleTree.' '.$ObjGarden->CurrPearTree);
+echo 'Яблок собрано: '.$ObjApples->Fruits.' с '.$ObjApples->CurrTrees.' деревьев, общей массой: '.$ObjApples->Mass.'<br>';
+echo 'Груш собрано: '.$ObjPears->Fruits.' с '.$ObjPears->CurrTrees.' деревьев, общей массой: '.$ObjPears->Mass.'<br>';
+
+
+file_put_contents('garden.txt', $ObjApples->CurrTrees.' '.$ObjPears->CurrTrees);
 
 ?>
