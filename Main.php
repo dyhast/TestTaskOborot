@@ -2,21 +2,19 @@
 require_once 'GardenClass.php';
 
 
-$current = file_get_contents('garden.txt');
-$current = explode(' ',$current);
-$CurrAppleTree = $current[0];
-$CurrPearTree = $current[1];
+$ConnectToDB = new PDO("mysql:host=localhost;dbname=Garden_DB", "root", "");
 
-$AppleTree = 10;
-$PearTree = 15;
+$AddAppleTree = 10;
+$AddPearTree = 15;
 
 
-$ObjApples = new Apples($CurrAppleTree);
-$ObjPears = new Pears($CurrPearTree);
+$ObjApples = new Apples($ConnectToDB);
+$ObjPears = new Pears($ConnectToDB);
 
-$ObjApples->AddTrees($AppleTree);
+$ObjApples->AddTrees($AddAppleTree);
 $ObjApples->SummMass();
-$ObjPears->AddTrees($PearTree);
+
+$ObjPears->AddTrees($AddPearTree);
 $ObjPears->SummMass();
 
 
@@ -24,6 +22,5 @@ echo 'Яблок собрано: '.$ObjApples->Fruits.' с '.$ObjApples->CurrTre
 echo 'Груш собрано: '.$ObjPears->Fruits.' с '.$ObjPears->CurrTrees.' деревьев, общей массой: '.$ObjPears->Mass.'<br>';
 
 
-file_put_contents('garden.txt', $ObjApples->CurrTrees.' '.$ObjPears->CurrTrees);
 
 ?>

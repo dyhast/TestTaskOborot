@@ -1,10 +1,11 @@
 <?
-
 abstract class trees 
 {
   public  $CurrTrees;
   public  $Fruits;
   public  $Mass;
+
+  protected $ConnectToDB;
 
   abstract protected function AddTrees($trees);
   abstract protected function TakeFruits();
@@ -13,14 +14,24 @@ abstract class trees
 
 class Apples extends trees
 {
-
-  public function __construct($CurrAppleTree)
+  public function __construct($ConnectToDB)
   {
-    $this->CurrTrees = $CurrAppleTree;
+    $this->ConnectToDB = $ConnectToDB;
+    $SelectTrees = 'SELECT ID FROM Trees WHERE Tree_Type = :Apple';
+    $CurrTree = $this->ConnectToDB->prepare($SelectTrees);
+    $CurrTree->execute(['Apple' => 'Apple']);
+    $CurrTree = count($CurrTree->fetchAll());
+    $this->CurrTrees = $CurrTree;
   }
 
   public function AddTrees($trees)
   {
+    $InsertTrees = 'INSERT INTO Trees (Tree_Type) VALUES (:Tree_Type)';
+    $CurrTree = $this->ConnectToDB->prepare($InsertTrees);
+    for ($i=0; $i < $trees; $i++) 
+    { 
+      $CurrTree->execute(['Tree_Type' => 'Apple']);
+    }
     $this->CurrTrees += $trees;
   }
 
@@ -48,14 +59,24 @@ class Apples extends trees
 
   class Pears extends trees
 {
-
-  public function __construct($CurrTrees)
+  public function __construct($ConnectToDB)
   {
-    $this->CurrTrees = $CurrTrees;
+    $this->ConnectToDB = $ConnectToDB;
+    $SelectTrees = 'SELECT ID FROM Trees WHERE Tree_Type = :Pear';
+    $CurrTree = $this->ConnectToDB->prepare($SelectTrees);
+    $CurrTree->execute(['Pear' => 'Pear']);
+    $CurrTree = count($CurrTree->fetchAll());
+    $this->CurrTrees = $CurrTree;
   }
 
   public function AddTrees($trees)
   {
+    $InsertTrees = 'INSERT INTO Trees (Tree_Type) VALUES (:Tree_Type)';
+    $CurrTree = $this->ConnectToDB->prepare($InsertTrees);
+    for ($i=0; $i < $trees; $i++) 
+    { 
+      $CurrTree->execute(['Tree_Type' => 'Pear']);
+    }
     $this->CurrTrees += $trees;
   }
 
