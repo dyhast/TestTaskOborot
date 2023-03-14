@@ -5,18 +5,20 @@ abstract class trees
   public  $Fruits;
   public  $Mass;
 
-  protected $ConnectToDB;
+  public $ConnectToDB;
 
   abstract protected function AddTrees($trees);
   abstract protected function TakeFruits();
   abstract protected function SummMass();
+
+
 }
 
 class Apples extends trees
 {
-  public function __construct($ConnectToDB)
+  public function __construct()
   {
-    $this->ConnectToDB = $ConnectToDB;
+    $this->ConnectToDB = new PDO("mysql:host=localhost;dbname=Garden_DB", "root", "");
     $SelectTrees = 'SELECT ID FROM Trees WHERE Tree_Type = :Apple';
     $CurrTree = $this->ConnectToDB->prepare($SelectTrees);
     $CurrTree->execute(['Apple' => 'Apple']);
@@ -59,9 +61,9 @@ class Apples extends trees
 
   class Pears extends trees
 {
-  public function __construct($ConnectToDB)
+  public function __construct()
   {
-    $this->ConnectToDB = $ConnectToDB;
+    $this->ConnectToDB = new PDO("mysql:host=localhost;dbname=Garden_DB", "root", "");
     $SelectTrees = 'SELECT ID FROM Trees WHERE Tree_Type = :Pear';
     $CurrTree = $this->ConnectToDB->prepare($SelectTrees);
     $CurrTree->execute(['Pear' => 'Pear']);

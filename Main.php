@@ -1,9 +1,6 @@
 <?
 require_once 'GardenClass.php';
 
-
-$ConnectToDB = new PDO("mysql:host=localhost;dbname=Garden_DB", "root", "");
-
 $AddAppleTree = 10;
 $AddPearTree = 15;
 
